@@ -1,4 +1,3 @@
-
 import streamlit as st
 import gspread
 import pandas as pd
@@ -10,7 +9,7 @@ st.set_page_config(page_title="SmartMeds-AI", page_icon="💊", layout="wide")
 st.title("💊 機構藥物交互作用與風險評估 DEMO")
 
 # ---------------- Google Sheets 認證 ----------------
-scope = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
+scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 creds = ServiceAccountCredentials.from_json_keyfile_dict(st.secrets["GSPREAD_CREDENTIALS"], scope)
 gs_client = gspread.authorize(creds)
 sheet = gs_client.open("SmartMeds_DB").sheet1
@@ -34,7 +33,6 @@ def gpt_risk_label(drug_list: str) -> str:
     return "紅" if "紅" in ans else "黃" if "黃" in ans else "綠"
 
 # ---------------- 讀取 Sheet ----------------
-@st.cache_data(show_spinner=False)
 def load_sheet():
     df_local = pd.DataFrame(sheet.get_all_records())
     if "藥師風險判讀" not in df_local.columns:
