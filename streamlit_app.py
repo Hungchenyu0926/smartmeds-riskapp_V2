@@ -10,7 +10,7 @@ st.set_page_config(page_title="SmartMeds-AI", page_icon="💊", layout="wide")
 st.title("💊 機構藥物交互作用與風險評估 DEMO")
 
 # ---------------- Google Sheets 認證 ----------------
-scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+scope = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
 creds = ServiceAccountCredentials.from_json_keyfile_dict(st.secrets["GSPREAD_CREDENTIALS"], scope)
 gs_client = gspread.authorize(creds)
 sheet = gs_client.open("SmartMeds_DB").sheet1
